@@ -21,7 +21,7 @@ class AdminStoreController extends Controller
 
         $data = $request->validated();
 
-        new GrantResource(Grant::create($data));
+        Grant::create($data);
 
         /*
          * Возвращаем ответ, если все хорошо

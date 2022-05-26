@@ -46,8 +46,9 @@ class User extends Authenticatable
     public function grants()
     {
         return $this->belongsToMany(Grant::class,
-            'favourite_user_grant_notifications',
+            'user_grants',
             'user_id',
-            'grant_id', 'is_notification');
+            'grant_id')
+            ->withPivot('is_notification');
     }
 }

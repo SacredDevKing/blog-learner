@@ -18,6 +18,7 @@ class GrantResource extends JsonResource
             /*
              * Поля которые создаются после создания гранта и преобразуются в json
              */
+
             'id' => $this->id,
             'title' => $this->title,
             'short_content' => $this->short_content,

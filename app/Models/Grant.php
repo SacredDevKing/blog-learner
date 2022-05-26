@@ -12,8 +12,10 @@ class Grant extends Model
 
     use SoftDeletes;
 
-    protected $guarded = false;
-
+    protected $hidden = [
+      'short_content',
+      'deleted_at',
+    ];
 
     protected $fillable = [
         'title',
@@ -27,9 +29,10 @@ class Grant extends Model
     public function users()
     {
         return $this->belongsToMany(User::class,
-            'favourite_user_grant_notifications',
+            'user_grants',
             'grant_id',
-            'user_id', 'is_notification');
+            'user_id')
+            ->withPivot('is_notification');
     }
 
 }

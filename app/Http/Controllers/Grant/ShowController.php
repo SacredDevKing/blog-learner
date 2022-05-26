@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Grant;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Grant\GrantResource;
 use App\Models\Grant;
 
 class ShowController extends Controller
@@ -19,6 +20,9 @@ class ShowController extends Controller
 
         $grant = Grant::find($grant);
 
+        //Делаем колонку "short_content" видимой (по дефолту ее не видно)
+        $grant->makeVisible('short_content');
+
         /*
          * Получаем ответ если все ок
          */
@@ -28,5 +32,7 @@ class ShowController extends Controller
                 'grant' => $grant,
             ])
             ->setStatusCode(200, 'Grant page');
+
+
     }
 }

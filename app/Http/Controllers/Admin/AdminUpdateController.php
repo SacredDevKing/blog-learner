@@ -1,9 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
+use App\Events\GrantUpdateEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Grant\AdminGrantRequest;
 use App\Models\Grant;
+use App\Models\User;
+
 
 class AdminUpdateController extends Controller
 {
@@ -14,15 +18,26 @@ class AdminUpdateController extends Controller
     public function __invoke(AdminGrantRequest $request, Grant $grant)
     {
         /*
-         *  Вношу новые данные в переменную, затем обновляю грант новыми данными
+         * Заполняю грант данными из реквеста
          */
 
-        $data = $request->validated();
-
-        $grant->update($data);
+        $grant->fill($request->validated());
 
         /*
-         * Возвращается ответ, если все хорошо
+         * Если данные являются новыми для гранта
+         * Тогда грант обновляется в базе данных
+         * И передается в ивент чтобы отослать нужным пользователям письмо об его изменении
+         */
+
+        if($grant->isDirty()){
+
+            $grant->save();
+
+            event(new GrantUpdateEvent($grant));
+        }
+
+        /*
+         * Возвращается ответ
          */
 
         return response()
@@ -31,7 +46,5 @@ class AdminUpdateController extends Controller
                 'grant' => $grant
             ])
             ->setStatusCode(200, 'Grant updated');
-
     }
 }
-//$grant = new GrantResource($grant->fresh());

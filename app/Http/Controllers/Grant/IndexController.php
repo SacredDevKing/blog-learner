@@ -16,9 +16,10 @@ class IndexController extends Controller
     {
         /*
          * Получение списка всех грантов из БД
+         * Сортировка по дате публикации
          */
 
-        $grants = Grant::all();
+        $grants = Grant::latest('created_at')->get();
 
         /*
          * Возвращаем ответ, если все хорошо

@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('favourite_user_grant_notifications', function (Blueprint $table) {
+        Schema::create('user_grants', function (Blueprint $table) {
             $table->id();
 
             $table->unsignedBigInteger('user_id');
@@ -37,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('favourite_user_grant_notifications');
+        Schema::dropIfExists('user_grants');
     }
 };

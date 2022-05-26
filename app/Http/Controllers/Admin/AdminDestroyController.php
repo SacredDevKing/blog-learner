@@ -12,7 +12,7 @@ class AdminDestroyController extends Controller
      * Удаление гранта из БД админом через API
      */
 
-    public function __invoke()
+    public function __invoke(Grant $grant)
     {
         /*
          * Удаляем грант из БД

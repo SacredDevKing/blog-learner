@@ -2,13 +2,14 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\FavouriteUserGrantNotification>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\UserGrant>
  */
-class NotificationFactory extends Factory
+class UserGrantFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,7 +19,7 @@ class NotificationFactory extends Factory
     public function definition()
     {
         return [
-            'is_notification' => random_int(0, 1)
+            //
         ];
     }
 }
