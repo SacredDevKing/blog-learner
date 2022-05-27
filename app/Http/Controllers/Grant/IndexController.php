@@ -21,6 +21,9 @@ class IndexController extends Controller
 
         $grants = Grant::latest('created_at')->get();
 
+        //Делаем колонку "short_content" видимой (по дефолту ее не видно)
+        $grant->makeVisible('short_content');
+
         /*
          * Возвращаем ответ, если все хорошо
          */

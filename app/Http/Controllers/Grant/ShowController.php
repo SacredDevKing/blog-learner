@@ -20,8 +20,8 @@ class ShowController extends Controller
 
         $grant = Grant::find($grant);
 
-        //Делаем колонку "short_content" видимой (по дефолту ее не видно)
-        $grant->makeVisible('short_content');
+        //Делаем колонку "content" видимой (по дефолту ее не видно)
+        $grant->makeVisible('content');
 
         /*
          * Получаем ответ если все ок

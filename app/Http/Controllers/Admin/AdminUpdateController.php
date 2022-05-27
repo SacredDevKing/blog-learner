@@ -18,10 +18,12 @@ class AdminUpdateController extends Controller
     public function __invoke(AdminGrantRequest $request, Grant $grant)
     {
         /*
-         * Заполняю грант данными из реквеста
+         * Заполняю грант данными из реквеста и проверяю обновились ли данные атрибуты
          */
 
         $grant->fill($request->validated());
+
+        $updateGrant = $grant->isDirty(['title', 'short_content', 'content',]);
 
         /*
          * Если данные являются новыми для гранта
@@ -29,7 +31,8 @@ class AdminUpdateController extends Controller
          * И передается в ивент чтобы отослать нужным пользователям письмо об его изменении
          */
 
-        if($grant->isDirty()){
+        if($updateGrant)
+        {
 
             $grant->save();
 

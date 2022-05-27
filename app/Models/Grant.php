@@ -14,6 +14,7 @@ class Grant extends Model
 
     protected $hidden = [
       'short_content',
+      'content',
       'deleted_at',
     ];
 
