@@ -12,20 +12,18 @@ class Grant extends Model
 
     use SoftDeletes;
 
-    protected $hidden = [
-      'short_content',
-      'content',
-      'deleted_at',
-    ];
-
     protected $fillable = [
         'title',
         'short_content',
         'content',
         'image',
-        'start_grant',
-        'end_grant',
+        'created_at'
     ];
+
+    protected $casts = [
+        'created_at' => 'datetime:d/m/Y',
+    ];
+
 
     public function users()
     {

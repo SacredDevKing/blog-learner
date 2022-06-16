@@ -16,11 +16,9 @@ return new class extends Migration
         Schema::create('grants', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('short_content');
-            $table->text('content');
+            $table->text('short_content')->nullable();
+            $table->text('content')->nullable();
             $table->string('image')->nullable();
-            $table->dateTime('start_grant');
-            $table->dateTime('end_grant');
             $table->timestamps();
 
             $table->softDeletes();

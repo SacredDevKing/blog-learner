@@ -24,8 +24,7 @@ class GrantResource extends JsonResource
             'short_content' => $this->short_content,
             'content' => $this->content,
             'image' => $this->image,
-            'start_grant' => $this->start_grant,
-            'end_grant' => $this->end_grant,
+            'created_at' => $this->created_at
         ];
     }
 }

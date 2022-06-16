@@ -1,14 +1,15 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminDestroyController;
-use App\Http\Controllers\Admin\AdminStoreController;
-use App\Http\Controllers\Admin\AdminUpdateController;
-use App\Http\Controllers\Grant\IndexController;
-use App\Http\Controllers\Grant\ShowController;
-use App\Http\Controllers\User\CabinetController;
-use App\Http\Controllers\User\LoginController;
-use App\Http\Controllers\User\RegisterController;
+use App\Http\Controllers\Api\Admin\AdminDestroyController;
+use App\Http\Controllers\Api\Admin\AdminStoreController;
+use App\Http\Controllers\Api\Admin\AdminUpdateController;
+use App\Http\Controllers\Api\Grant\IndexController;
+use App\Http\Controllers\Api\Grant\ShowController;
+use App\Http\Controllers\Api\User\CabinetController;
+use App\Http\Controllers\Api\User\StoreController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,36 +21,62 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
 /*
  * User routes
  */
 
-Route::post('/register', [RegisterController::class, '__invoke']); // Регистрация
-Route::post('/login', [LoginController::class, '__invoke']); // Логин
+Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
 
-Route::group(['namespace' => 'User', 'middleware' => 'auth:api'], function (){
-    Route::get('/cabinet', [CabinetController::class, '__invoke']); // Личный кабинет пользователя;
+    Route::post('login', [AuthController::class,'login']);
+    Route::post('logout', [AuthController::class,'logout']);
+    Route::post('refresh', [AuthController::class,'refresh']);
+    Route::post('me', [AuthController::class,'me']);
+
+    Route::group(['middleware' => 'jwt.auth'], function () {
+        Route::group(['namespace' => 'Grant'], function (){
+            Route::get('/grants', [IndexController::class, '__invoke']); // Получить все гранты
+            Route::get('/grants/{grant}', [ShowController::class, '__invoke']); // Показать один грант с подробным описанием
+        });
+
+        Route::group(['namespace' => 'User'], function (){
+            Route::get('/cabinet', [CabinetController::class, '__invoke']); // Личный кабинет пользователя;
+        });
+
+        Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'admin'], function (){
+            Route::post('/grants', [AdminStoreController::class, '__invoke']); // Добавить грант
+            Route::patch('/grants/{grant}', [AdminUpdateController::class, '__invoke']); // Изменить грант
+            Route::delete('/grants/{grant}', [AdminDestroyController::class, '__invoke']); // Удалить грант
+        });
+    });
 });
 
-/*
- * Grant routes
- */
+Route::group(['namespace' => 'User'], function (){
+    Route::post('/users', [StoreController::class , '__invoke']);
+});
 
-Route::get('/grants', [IndexController::class, '__invoke']); // Получить все гранты
-Route::get('/grants/{grant}', [ShowController::class, '__invoke']); // Показать один грант с подробным описанием
+
 
 /*
  * Admin routes
  */
 
-Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'admin'], function (){
-    Route::group(['namespace' => 'Grant','middleware' => 'auth:api'], function (){
-        Route::post('/grants', [AdminStoreController::class, '__invoke']); // Добавить грант
-        Route::patch('/grants/{grant}', [AdminUpdateController::class, '__invoke']); // Изменить грант
-        Route::delete('/grants/{grant}', [AdminDestroyController::class, '__invoke']); // Удалить грант
-    });
-});
+//Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'admin'], function (){
+//        Route::post('/grants', [AdminStoreController::class, '__invoke']); // Добавить грант
+//        Route::patch('/grants/{grant}', [AdminUpdateController::class, '__invoke']); // Изменить грант
+//        Route::delete('/grants/{grant}', [AdminDestroyController::class, '__invoke']); // Удалить грант
+//});
+
+//Route::group(['namespace' => 'Grant','middleware' => 'auth:api'], function (){
+//    Route::post('/grants', [AdminStoreController::class, '__invoke']); // Добавить грант
+//    Route::patch('/grants/{grant}', [AdminUpdateController::class, '__invoke']); // Изменить грант
+//    Route::delete('/grants/{grant}', [AdminDestroyController::class, '__invoke']); // Удалить грант
+//});
+
+
 
 
 

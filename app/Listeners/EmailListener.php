@@ -44,12 +44,7 @@ class EmailListener
 
             $emails = $user->email;
 
-
             UpdatedGrantJob::dispatch($emails, $nameGrant);
-//            Mail::to($emails)->send(new UpdateGrantNotification($nameGrant));
-//            Mail::send('mail', [], function ($message) use ($nameGrant, $emails) {
-//                $message->to($emails)->subject('Your grant ' . $nameGrant . ' is updated');
-//            });
         }
     }
 }

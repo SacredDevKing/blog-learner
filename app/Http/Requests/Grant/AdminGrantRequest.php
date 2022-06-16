@@ -27,11 +27,9 @@ class AdminGrantRequest extends ApiRequest
              * Реализуем валидацию для взаимодействия админа с грантами(создание, редактирование, удаление)
              */
             'title' => ['required'],
-            'short_content' => ['required'],
+            'short_content' => 'string',
             'content' => ['required'],
             'image' => 'string',
-            'start_grant' => ['required'],
-            'end_grant' => ['required'],
         ];
     }
 }

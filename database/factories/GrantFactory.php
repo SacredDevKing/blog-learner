@@ -21,11 +21,10 @@ class GrantFactory extends Factory
              * Заполняем таблицу grants данными
              */
             'title' => $this->faker->word,
-            'short_content' => $this->faker->sentence,
+            'short_content' => $this->faker->text,
             'content' => $this->faker->text,
             'image' => $this->faker->imageUrl,
-            'start_grant' => $this->faker->dateTime,
-            'end_grant' => $this->faker->dateTime,
+            'created_at' => $this->faker->dateTime,
         ];
     }
 }
