@@ -15,16 +15,20 @@ If you are not login in account - you cant enter to main page
 
 Similary you cant enter to admin page if you arent admin
 
-What does the site look like:
+## What does the site look like:
 
-Main page
+<code>Main page</code>
+
 ![Desktop Screenshot 2022 07 09 - 00 53 05 56](https://user-images.githubusercontent.com/98341261/178061585-5ceaf585-7d80-472b-9c75-b919f28de840.png)
 
-Admin page
+<code>Admin page</code>
+
 ![Desktop Screenshot 2022 07 09 - 00 53 22 41](https://user-images.githubusercontent.com/98341261/178062034-8664bd25-8497-4fa7-8ece-9ad1349392f1.png)
 
-Login page
+<code>Login page</code>
+
 ![Desktop Screenshot 2022 07 09 - 00 53 32 02](https://user-images.githubusercontent.com/98341261/178062040-fb3431a2-5692-4c26-a4db-a0896f70d912.png)
 
-Register page
+<code>Register page</code>
+
 ![Desktop Screenshot 2022 07 09 - 00 53 40 34](https://user-images.githubusercontent.com/98341261/178062049-6859f203-7fa6-43d0-b7ca-061d9b5b4d6f.png)
