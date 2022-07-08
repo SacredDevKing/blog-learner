@@ -13,7 +13,7 @@ After all setup server: <code>php artisan serve</code>
 
 If you are not login in account - you cant enter to main page
 
-Similary you cant enter to admin page if you arent admin
+Also you cant enter to admin page if you arent admin
 
 ## What does the site look like:
 
